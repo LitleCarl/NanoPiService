@@ -18,7 +18,7 @@ local_port = 8888
 subdomain = dev
 `
 
-module.export = function(){
+module.exports = function(){
 	fs.readFile(filePath, {encoding: "utf-8"}, function(err, contentStr){
 		var uuid = contentStr;
 		if (err) {
