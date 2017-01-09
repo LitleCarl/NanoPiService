@@ -36,7 +36,7 @@ module.exports = function(){
 			}
 
 			var util  = require('util'), spawn = require('child_process').spawn,
-			    command    = spawn('sudo', [__dirname+'./frpc', '-c', frpcConfigPath]); // the second arg is the command 
+			    command    = spawn('sudo', [__dirname+'/frpc', '-c', frpcConfigPath]); // the second arg is the command 
 
 				command.stdout.on('data', function (data) {    // register one or more handlers
 				  console.log(data+"");
