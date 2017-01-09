@@ -31,7 +31,7 @@ module.exports = function(){
 			if (err) {
 				// 写入fprc.ini配置
 				var frpcConfig = frpcConfigTemplate.replace("web02", uuid);
-				frpcConfig = frpcConfigTemplate.replace("subdomain = dev", "subdomain = "+uuid);
+				frpcConfig = frpcConfig.replace("subdomain = dev", "subdomain = "+uuid);
 				fs.writeFileSync(frpcConfigPath, frpcConfig, {encoding: "utf-8"});
 			}
 
@@ -39,11 +39,11 @@ module.exports = function(){
 			    command    = spawn('sudo', ['./frpc', '-c', frpcConfigPath]); // the second arg is the command 
 
 				command.stdout.on('data', function (data) {    // register one or more handlers
-				  console.log(data);
+				  console.log(data+"");
 				});
 
 				command.stderr.on('data', function (data) {
-				  console.log(data);
+				  console.log("err:"+data);
 				});
 
 				command.on('exit', function (code) {
