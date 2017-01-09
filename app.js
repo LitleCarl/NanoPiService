@@ -1,5 +1,6 @@
-var wiringPi = require('./addon.node');
-var wifiMode = require('./wifi_mode.js');
+var wiringPi = require('./modules/addon.node');
+var wifiMode = require('./modules/wifi_mode.js');
+var frpc = require('./modules/frpc.js');
 const EventEmitter = require('events');
 
 wiringPi.constValues = {
@@ -19,19 +20,18 @@ wiringPi.constValues = {
 	}
 } 
 
-////////////////////////////// 业务开始 /////////////////////////////////
 // 初始化wiringPi
 wiringPi.wiringPiSetup();
 const globalEventEmitter = new EventEmitter();
+frpc();
+////////////////////////////// wifi模式开关切换 Start /////////////////////////////////
 
-// wifi模式开关切换
 var WIFI_SWITCH_LOCKED = false;
-var latestMode = false;
+var latestMode = require('fs').readFileSync('/sys/module/bcmdhd/parameters/op_mode', {encoding: "utf-8"})[0] != "0";
 globalEventEmitter.on('WIFI_MODE_CHANGE', function(value) {
 	if (latestMode == value) {
 		return;
 	}
-	console.log('拨动了开关: ', value);
 	latestMode = value;
 	if (!WIFI_SWITCH_LOCKED) {
 		WIFI_SWITCH_LOCKED = true;
@@ -70,7 +70,7 @@ globalEventEmitter.on('WIFI_MODE_CHANGE', function(value) {
 
 wifiMode(globalEventEmitter);
 
-
+////////////////////////////// wifi模式开关切换 End /////////////////////////////////
 
 
 
