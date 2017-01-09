@@ -1,0 +1,14 @@
+{
+  "name": "nano-pi-service",
+  "version": "1.0.0",
+  "description": "An IoT Service based on NanoPi Neo Air.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^3.0.1"
+  }
+}
