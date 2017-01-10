@@ -18,8 +18,15 @@ module.exports = function () {
     app.use(bodyParser.json());
 
     app.post('/', function (req, res) {
-        console.log(req.body.ssid);
-        console.log(req.body.password);
+        var ssid = req.body.ssid;
+        var password = req.body.password;
+
+        // 检查参数
+        if (!ssid || !password) {
+            res.json({message: '参数错误'});
+            return;
+        }
+
         async.waterfall([
             function (cb) {
                 fs.readFile(wifiConfigPath, {encoding: "utf-8"}, function (err, str) {
