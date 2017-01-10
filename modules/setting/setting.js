@@ -41,7 +41,7 @@ module.exports = function () {
 
             function (wifiConfigString, cb) {
                 wifiConfigString = wifiConfigString.replace(/ssid="\w*"/, 'ssid="'+ ssid +'"')
-                wifiConfigString = wifiConfigString.replace(/psk="\w*"/, 'ssid="'+ password +'"')
+                wifiConfigString = wifiConfigString.replace(/psk="\w*"/, 'psk="'+ password +'"')
 
                 cb(null, wifiConfigString)
             },
