@@ -1,6 +1,7 @@
 var QR=require('qrcode-js');
 var fs=require('fs');
 var async=require('async');
+var bodyParser = require('body-parser')
 
 // Wifi SSID, PWD配置页面的Express程序
 const uuidPath = '/var/device_uuid';
@@ -10,6 +11,53 @@ module.exports = function () {
     var app = express();
     app.set('view engine', 'jade');
     app.set('views', __dirname + '/views');
+
+    // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({ extended: false }));
+    // parse application/json
+    app.use(bodyParser.json());
+
+    app.post('/', function (req, res) {
+        console.log(req.body.ssid);
+        console.log(req.body.password);
+        async.waterfall([
+            function (cb) {
+                fs.readFile(wifiConfigPath, {encoding: "utf-8"}, function (err, str) {
+                    if (err) {
+                        cb(err)
+                    }
+                    else {
+                        cb(null, str)
+                    }
+                })
+            },
+
+            function (wifiConfigString, cb) {
+                wifiConfigString = wifiConfigString.replace(/ssid="\w*"/, 'ssid="'+ ssid +'"')
+                wifiConfigString = wifiConfigString.replace(/psk="\w*"/, 'ssid="'+ password +'"')
+
+                cb(null, wifiConfigString)
+            },
+            function (finalWifiConfig, cb) {
+                fs.writeFile(wifiConfigPath, finalWifiConfig, function(err) {
+                    if (err) {
+                        cb(err);
+                    }
+                    else {
+                        cb(null, "SUCCESS")
+                    }
+                })
+            }
+        ], function (err, result) {
+            if (err) {
+                res.json({message: '保存失败,请查看错误原因'});
+            }
+            else {
+                res.json({message:'修改成功,请切换Wifi模式让设备联网'});
+            }
+        });
+        
+    });
 
     app.get('/', function (req, res) {
         async.parallel({
@@ -24,7 +72,7 @@ module.exports = function () {
                         }
                     }
                     else {
-                        cb(null, "aass");
+                        cb(null, null);
                     }
                 });
             },

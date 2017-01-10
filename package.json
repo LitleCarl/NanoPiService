@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.1.4",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jade": "^1.11.0",
     "qrcode-js": "0.0.2",
