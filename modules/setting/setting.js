@@ -33,8 +33,8 @@ module.exports = function () {
                     var config = {ssid: "", password: ""};
                     if (!err) {
                         try {
-                            config['ssid'] = str.match("ssid=\"(.*)\"");
-                            config['password'] = str.match("psk=\"(.*)\"");
+                            config['ssid'] = str.match("ssid=\"(.*)\"")[1];
+                            config['password'] = str.match("psk=\"(.*)\"")[1];
                             cb(null, config);
                         } catch(e) {
                             cb(null, {});
