@@ -1,6 +1,8 @@
 var wiringPi = require('./modules/addon.node');
 var wifiMode = require('./modules/wifi_mode.js');
 var frpc = require('./modules/frpc.js');
+// Wifi 账号密码设置
+var wifiConfigSetting = require('./modules/setting/setting');
 const EventEmitter = require('events');
 
 wiringPi.constValues = {
@@ -18,7 +20,7 @@ wiringPi.constValues = {
 		"PUD_DOWN": 1,
 		"PUD_UP": 2		
 	}
-} 
+};
 
 // 初始化wiringPi
 wiringPi.wiringPiSetup();
@@ -71,6 +73,10 @@ globalEventEmitter.on('WIFI_MODE_CHANGE', function(value) {
 wifiMode(globalEventEmitter);
 
 ////////////////////////////// wifi模式开关切换 End /////////////////////////////////
+
+////////////////////////////// Wifi Client模式账户密码修改模式 Start /////////////////////////////////
+wifiConfigSetting();
+////////////////////////////// Wifi Client模式账户密码修改模式 End /////////////////////////////////
 
 
 

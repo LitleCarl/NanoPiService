@@ -1,0 +1,44 @@
+// Created by Tsao on 2017/1/10.
+
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        // The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+        title Wifi连接设置
+        // Bootstrap
+        link(href='stylesheets/bootstrap.min.css', rel='stylesheet')
+        style(type='text/css').
+            .wlan-setting {
+                margin-top: 50px;
+            }
+            #uuid-qrcode {
+                padding: 10px 0;
+                width: 100%;
+            }
+    body
+        .container
+            .row.wlan-setting
+                .col-xs-3.col-xs-offset-3(style='text-align: center;')
+                    div
+                        img#uuid-qrcode(src="data:image/gif;base64,#{qrcode}")
+                    div(style='text-align: left;')
+                        div 1. 使用APP扫描二维码添加本设备
+                        div 2. 右侧输入家中Wifi名称以及密码
+                        div 3. 保存后拨动按钮切换wifi模式
+                        div 4. 等待设备连入互联网
+                .col-xs-3
+                    form
+                        h4.form-signin-heading 将本设备连接至WLAN
+                        label.sr-only(for='ssid') 无线路由名称:比如TP-LINK_JFKDA
+                        - var ssid = wifiConfig['ssid'] || '', password = wifiConfig['password'] || ''
+                        input#ssid.form-control(style='margin-top: 40px;', type='text', placeholder='无线路由名称:比如TP-LINK_JFKDA', required='', autofocus='', value=ssid)
+                        label.sr-only(for='password') 密码
+                        input#password.form-control(style='margin-top: 20px;', type='password', placeholder='密码', required='', value=password)
+                        button.btn.btn-lg.btn-primary.btn-block(type='submit', style='margin-top: 40px;') 保存
+
+        // /container
+        script(src='javascripts/jquery.js')
+        script(src='javascripts/bootstrap.js')
