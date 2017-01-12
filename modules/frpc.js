@@ -35,7 +35,8 @@ module.exports = function(){
 				fs.writeFileSync(frpcConfigPath, frpcConfig, {encoding: "utf-8"});
 			}
 
-			var util  = require('util'), spawn = require('child_process').spawn,
+			function spawnFrpcProcess(){
+				var util  = require('util'), spawn = require('child_process').spawn,
 			    command    = spawn('sudo', [__dirname+'/frpc', '-c', frpcConfigPath, '--log-level', 'debug']); // the second arg is the command 
 
 				command.stdout.on('data', function (data) {    // register one or more handlers
@@ -48,7 +49,11 @@ module.exports = function(){
 
 				command.on('exit', function (code) {
 					console.log('frpc exit with code:', code);
+					spawnFrpcProcess();
 				});
+			}
+
+			
 
 		});
 	})	
