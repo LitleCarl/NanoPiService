@@ -3,7 +3,12 @@ var wifiMode = require('./modules/wifi_mode.js');
 var frpc = require('./modules/frpc.js');
 // Wifi 账号密码设置
 var wifiConfigSetting = require('./modules/setting/setting');
+
 const EventEmitter = require('events');
+
+// SocketIO对外信息同步
+require('./modules/socket')['init'](EventEmitter);
+var socketConst = require('./modules/socket').const;
 
 wiringPi.constValues = {
 	pinMode: {
