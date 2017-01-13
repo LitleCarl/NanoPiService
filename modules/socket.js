@@ -1,6 +1,6 @@
 const SocketConst = {
 	Type: {
-		Broadcast: "Broadcast"
+		Broadcast: "_Broadcast"
 	},
 	EventName: {
 		Update: "Update"
