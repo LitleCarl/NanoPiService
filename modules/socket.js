@@ -19,7 +19,9 @@ module.exports = {
 		},3000);
 
 		// 监听广播，并且向外发送
-		eventEmitter.on(SocketConst.Type.Broadcast, io.emit);
+		eventEmitter.on(SocketConst.Type.Broadcast, function(eventName, data){
+			io.emit(eventName, data);
+		});
 		io.listen(8800);
 	}
 }
