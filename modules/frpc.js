@@ -14,7 +14,7 @@ privilege_token = 12345678
 [web02]
 type = http
 privilege_mode = true
-local_port = 8888
+local_port = 8800
 subdomain = dev
 `
 
