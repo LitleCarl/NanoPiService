@@ -6,10 +6,6 @@ var wifiConfigSetting = require('./modules/setting/setting');
 
 const EventEmitter = require('events');
 
-// SocketIO对外信息同步
-require('./modules/socket')['init'](EventEmitter);
-var socketConst = require('./modules/socket').const;
-
 wiringPi.constValues = {
 	pinMode: {
 		"INPUT": 0,
@@ -30,6 +26,12 @@ wiringPi.constValues = {
 // 初始化wiringPi
 wiringPi.wiringPiSetup();
 const globalEventEmitter = new EventEmitter();
+
+// SocketIO对外信息同步
+require('./modules/socket')['init'](globalEventEmitter);
+var socketConst = require('./modules/socket').const;
+
+// 端口映射
 frpc();
 ////////////////////////////// wifi模式开关切换 Start /////////////////////////////////
 
