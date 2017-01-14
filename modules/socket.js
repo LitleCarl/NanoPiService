@@ -1,4 +1,4 @@
-const properties = require('./properties/index');
+const propertiesIMP = require('./properties/index')['implementation'];
 const SocketConst = {
 	Type: {
 		Broadcast: "Broadcast"
@@ -14,7 +14,7 @@ module.exports = {
 		io.on('connection', function(socket){
 			console.log('new client coming');
 			socket.on('subscribe', function (propertyName, fn) {
-				properties(propertyName, function (updatedValue) {
+				propertiesIMP(propertyName, function (updatedValue) {
 					fn && fn(updatedValue);
 				})
 			});
