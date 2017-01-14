@@ -7,6 +7,23 @@ const propertyValues = {
 };
 const eventEmitter = new (require('events'))();
 
+wiringPi.constValues = {
+    pinMode: {
+        "INPUT": 0,
+        "OUTPUT": 1
+    },
+
+    pinValue: {
+        "LOW": 0,
+        "HIGH": 1
+    },
+    pullResistor: {
+        "PUD_OFF": 0,
+        "PUD_DOWN": 1,
+        "PUD_UP": 2
+    }
+};
+
 module.exports = {
   "人体探测": {
       "subscribe": function (socket, cb) {
