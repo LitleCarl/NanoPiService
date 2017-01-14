@@ -15,7 +15,7 @@ module.exports = {
 			console.log('new client coming');
 			socket.on('subscribe', function (propertyName, fn) {
 				console.log('comes one subscribe');
-				propertiesIMP(propertyName, function (updatedValue) {
+				propertiesIMP(socket, propertyName, 'subscribe', function (updatedValue) {
 					console.log('exec fn with:', updatedValue);
 					fn && fn(updatedValue);
 				})
