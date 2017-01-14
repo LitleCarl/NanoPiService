@@ -1,7 +1,7 @@
 /**
  * Created by Tsao on 2017/1/13.
  */
-const wiringPi = require('addon');
+const wiringPi = require('./addon');
 const propertyValues = {
     "人体探测" : null
 };
