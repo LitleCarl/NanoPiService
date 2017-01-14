@@ -9,6 +9,7 @@ module.exports = {
   manifest: jsonfile.readFileSync(filePath, {throws: false}),
   implementation: function (socket, propertyName, method,callback) {
      var implementation = deviceImplementation[propertyName];
+    console.log('implementation');
 
     implementation && implementation[method] && implementation[method](socket, callback);
   }
