@@ -1,0 +1,8 @@
+[
+  {
+    "name": "人体检测",
+    "type": "boolean",
+    "assert": null,
+    "permission": ["read"]
+  }
+]
