@@ -2,11 +2,11 @@
  * Created by Tsao on 2017/1/13.
  */
 const wiringPi = require('./addon');
-const propertyValues = {
-    "人体探测" : null
-};
+const propertyValues = {};
 const eventEmitter = new (require('events'))();
-
+const PropertyNames = {
+    Infrared: "人体探测"
+};
 wiringPi.constValues = {
     pinMode: {
         "INPUT": 0,
@@ -27,17 +27,17 @@ wiringPi.constValues = {
 module.exports = {
   "人体探测": {
       "subscribe": function (socket, cb) {
-          cb(propertyValues['人体探测']);
+          cb(propertyValues[PropertyNames.Infrared]);
           var emitterCallback = function () {
-              cb(propertyValues['人体探测']);
+              cb(propertyValues[PropertyNames.Infrared]);
           };
           eventEmitter.on('人体探测', emitterCallback);
           socket.on('disconnect', function () {
-              eventEmitter.removeListener('人体探测', emitterCallback);
+              eventEmitter.removeListener(PropertyNames.Infrared, emitterCallback);
           })
       },
       "set": function () {
-          return console.log('人体探测', 'is not writable');
+          return console.log(PropertyNames.Infrared, 'is not writable');
       }
   }
 };
@@ -53,10 +53,10 @@ wiringPi.wiringPiSetup();
     wiringPi.pinMode(infrared_pin, wiringPi.constValues.pinMode.INPUT);
     setInterval(function(){
         var value = wiringPi.digitalRead(infrared_pin);
-        if (propertyValues['人体探测'] != value) {
-            propertyValues['人体探测'] = value;
+        if (propertyValues[PropertyNames.Infrared] != value) {
+            propertyValues[PropertyNames.Infrared] = value;
             console.log('人体红外状态更新: ', value);
-            eventEmitter.emit("人体探测");
+            eventEmitter.emit(PropertyNames.Infrared);
         }
     }, 500);
 })();

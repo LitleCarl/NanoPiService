@@ -29,7 +29,7 @@ const globalEventEmitter = new EventEmitter();
 
 // SocketIO对外信息同步
 require('./modules/socket')['init'](globalEventEmitter);
-var socketConst = require('./modules/socket').const;
+//var socketConst = require('./modules/socket').const;
 
 // 端口映射
 frpc();

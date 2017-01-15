@@ -9,8 +9,10 @@ module.exports = {
   manifest: jsonfile.readFileSync(filePath, {throws: false}),
   implementation: function (socket, propertyName, method,callback) {
      var implementation = deviceImplementation[propertyName];
-    console.log('implementation: ', implementation[method]);
-
-    implementation && implementation[method] && implementation[method](socket, callback);
+    if (!implementation || !implementation[method]) {
+      socket.emit('err', "property: " + propertyName + " is not supported for "+ method);
+      return;
+    }
+    implementation[method](socket, callback);
   }
 };

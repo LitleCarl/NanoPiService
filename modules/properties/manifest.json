@@ -1,8 +1,11 @@
-[
-  {
-    "name": "人体检测",
-    "type": "boolean",
-    "assert": null,
-    "permission": ["read"]
-  }
-]
+{
+  "name": "红外探测仪器",
+  "properties": [
+    {
+      "name": "人体检测",
+      "type": "boolean",
+      "permission": ["read"],
+      "functions": "function desc() { return '状态' }; function valueDesc(val) { return val == 0 ? '未检测到异常' : '有人' }; "
+    }
+  ]
+}
