@@ -10,6 +10,7 @@ module.exports = {
   implementation: function (socket, propertyName, method,callback) {
      var implementation = deviceImplementation[propertyName];
     if (!implementation || !implementation[method]) {
+      console.log("property: " + propertyName + " is not supported for "+ method)
       socket.emit('err', "property: " + propertyName + " is not supported for "+ method);
       return;
     }
