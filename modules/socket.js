@@ -13,11 +13,9 @@ module.exports = {
 		var io = require('socket.io')();
 		io.on('connection', function(socket){
 			console.log('new client coming');
-			socket.on('subscribe', function (propertyName, fn) {
-				console.log('comes one subscribe');
+			socket.on('subscribe', function (propertyName) {
 				propertiesIMP(socket, propertyName, 'subscribe', function (updatedValue) {
-					console.log('exec fn with:', updatedValue);
-					fn && fn(updatedValue);
+					socket.emit('subscribe_res', {name: propertyName, value: updatedValue});
 				})
 			});
 		});
