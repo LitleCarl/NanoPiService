@@ -40,15 +40,15 @@ module.exports = function(){
 			    command    = spawn('sudo', [__dirname+'/frpc', '-c', frpcConfigPath, '--log-level', 'debug']); // the second arg is the command 
 
 				command.stdout.on('data', function (data) {    // register one or more handlers
-				  console.log(data+"");
+				  //console.log(data+"");
 				});
 
 				command.stderr.on('data', function (data) {
-				  console.log("err:"+data);
+				  //console.log("err:"+data);
 				});
 
 				command.on('exit', function (code) {
-					console.log('frpc exit with code:', code);
+					//console.log('frpc exit with code:', code);
 					spawnFrpcProcess();
 				});
 			})();

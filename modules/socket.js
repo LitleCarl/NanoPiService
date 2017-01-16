@@ -19,6 +19,7 @@ module.exports = {
 			console.log('new client coming');
 
             socket.on(SocketConst.OnEventName.DeviceInfo, function (ack) {
+                console.log('Receive req for device_info, ready to ack, ', ack);
                ack && ack(propertiesManifest);
             });
 
