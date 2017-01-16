@@ -15,7 +15,8 @@ module.exports = {
 	const: SocketConst,
 	init: function() {
 		var io = require('socket.io')();
-		io.on('connection', function(socket){
+        io.set('transports', ['websocket']);
+        io.on('connection', function(socket){
 			console.log('new client coming');
 
             socket.on(SocketConst.OnEventName.DeviceInfo, function (ack) {
