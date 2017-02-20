@@ -16,6 +16,12 @@ type = http
 privilege_mode = true
 local_port = 8800
 subdomain = dev
+
+[video0]
+type = http
+privilege_mode = true
+local_port = 8080
+subdomain = video0SubDomain
 `
 
 module.exports = function(){
@@ -30,8 +36,10 @@ module.exports = function(){
 		fs.readFile(frpcConfigPath, {encoding: "utf-8"}, function(err, contentStr){
 			if (err) {
 				// 写入fprc.ini配置
-				var frpcConfig = frpcConfigTemplate.replace("web02", uuid);
-				frpcConfig = frpcConfig.replace("subdomain = dev", "subdomain = "+uuid);
+				var frpcConfig = frpcConfigTemplate.replace("web02", uuid + "-web02");
+				frpcConfig = frpcConfigTemplate.replace("video0", uuid + "-video0");
+				frpcConfig = frpcConfig.replace("subdomain = dev", "subdomain = " + uuid + "-web02");
+				frpcConfig = frpcConfig.replace("subdomain = video0SubDomain", "subdomain = " + uuid + "-video0");
 				fs.writeFileSync(frpcConfigPath, frpcConfig, {encoding: "utf-8"});
 			}
 
