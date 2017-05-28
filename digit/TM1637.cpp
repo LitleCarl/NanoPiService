@@ -166,3 +166,20 @@ int8_t TM1637::coding(int8_t DispData)
   else DispData = TubeTab[DispData] + PointData;
   return DispData;
 }
+
+#include "nbind/nbind.h"
+
+NBIND_CLASS(TM1637) {
+  method(init);
+  method(writeByte);
+  method(start);
+  method(stop);
+  method(display);
+  multimethod(display, args(uint8_t, int8_t), "displaySingle");
+  method(clearDisplay);
+  method(set);
+  method(point);
+  method(coding);
+  multimethod(coding, args(int8_t), "codingSingle");
+
+}
