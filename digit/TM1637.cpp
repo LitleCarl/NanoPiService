@@ -26,6 +26,7 @@ static int8_t TubeTab[] = {0x3f,0x06,0x5b,0x4f,
                            0x39,0x5e,0x79,0x71};//0~9,A,b,C,d,E,F                        
 TM1637::TM1637(uint8_t Clk, uint8_t Data)
 {
+  wiringPiSetup();
   Clkpin = Clk;
   Datapin = Data;
   pinMode(Clkpin,OUTPUT);
