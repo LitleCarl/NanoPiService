@@ -19,7 +19,6 @@
 //  Modified record:
 //
 /*******************************************************************************/
-#include <TimerOne.h>
 #include "TM1637.h"
 #define ON 1
 #define OFF 0
@@ -41,8 +40,8 @@ void setup()
 {
   tm1637.set();
   tm1637.init();
-  Timer1.initialize(500000);//timing for 500ms
-  Timer1.attachInterrupt(TimingISR);//declare the interrupt serve routine:TimingISR  
+  // Timer1.initialize(500000);//timing for 500ms
+  // Timer1.attachInterrupt(TimingISR);//declare the interrupt serve routine:TimingISR  
 }
 void loop()
 {
