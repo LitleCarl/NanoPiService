@@ -32,7 +32,7 @@ unsigned char minute = 0;
 unsigned char hour = 12;
 
 
-#define CLK 3//pins definitions for TM1637 and can be changed to other ports    
+#define CLK 9//pins definitions for TM1637 and can be changed to other ports    
 #define DIO 14
 TM1637 tm1637(CLK,DIO);
 
