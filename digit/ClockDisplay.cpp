@@ -78,20 +78,18 @@ void setup()
 }
 void loop()
 {
-  if(Update == ON)
-  {
+  // if(Update == ON)
+  // {
     TimeUpdate();
     tm1637.display(TimeDisp);
-  }
+  // }
   
 }
 
 int main() {
-  TM1637 tm1637 = TM1637(CLK,DIO);
-
-  // setup();
-  // while(true) {
-  //   loop();
-  // }
+  setup();
+  while(true) {
+    loop();
+  }
   return 0;
 }
