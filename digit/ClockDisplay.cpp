@@ -87,9 +87,11 @@ void loop()
 }
 
 int main() {
-  setup();
-  while(true) {
-    loop();
-  }
+  TM1637* tm1637 = TM1637(CLK,DIO);
+
+  // setup();
+  // while(true) {
+  //   loop();
+  // }
   return 0;
 }
