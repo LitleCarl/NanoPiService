@@ -14,8 +14,7 @@ const SocketConst = {
 module.exports = {
 	const: SocketConst,
 	init: function() {
-		var io = require('socket.io')();
-        io.set('transports', ['websocket']);
+		var io = require('socket.io')({"transports": ['websocket']});
         io.on('connection', function(socket){
 			console.log('new client coming');
 

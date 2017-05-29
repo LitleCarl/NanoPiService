@@ -170,16 +170,20 @@ int8_t TM1637::coding(int8_t DispData)
 #include "nbind/nbind.h"
 
 NBIND_CLASS(TM1637) {
+  construct<uint8_t, uint8_t>();
   method(init);
   method(writeByte);
   method(start);
   method(stop);
-  method(display);
+  // method(display);
+  multimethod(display, args(int8_t[]), "displayMultiple");
+
   multimethod(display, args(uint8_t, int8_t), "displaySingle");
   method(clearDisplay);
   method(set);
   method(point);
-  method(coding);
+  // method(coding);
+  multimethod(coding, args(int8_t[]), "codingMultiple");
   multimethod(coding, args(int8_t), "codingSingle");
 
 }
