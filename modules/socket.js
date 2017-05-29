@@ -1,5 +1,9 @@
 const propertiesIMP = require('./properties/index')['implementation'];
 const propertiesManifest = require('./properties/index')['manifest'];
+const _ = require('lodash');
+const async = require('async')
+var Client = require('node-rest-client').Client;
+
 const SocketConst = {
 	Type: {
 		Broadcast: "Broadcast"
@@ -9,23 +13,47 @@ const SocketConst = {
 	},
     OnEventName: {
         DeviceInfo: "device_info"
-    }
+    },
+
 };
 module.exports = {
 	const: SocketConst,
 	init: function() {
 		var io = require('socket.io')({"transports": ['websocket']});
-        io.on('connection', function(socket){
+		var webSensor = io.of('/wetSensor');
+		var phone = io.of('/phone');
+		webSensor.on('connection', function(socket){
 			console.log('new client coming');
 
-            socket.on(SocketConst.OnEventName.DeviceInfo, function (ack) {
-                console.log('Receive req for device_info, ready to ack, ', ack);
-               ack && ack(propertiesManifest);
-            });
+		});
 
-            socket.on('subscribe', function (propertyName) {
-				propertiesIMP(socket, propertyName, 'subscribe', function (updatedValue) {
-					socket.emit(SocketConst.EmitEventName.SubscribeRes, {name: propertyName, value: updatedValue});
+		phone.on('connection', function(socket){
+			socket.on('wetRequest', function (ack) {
+				var clients = webSensor.connected;
+				var tasks = [];
+
+				_.forEach(['192.168.31.140'], function(ip){
+					if (clients[key] && clients[key]['id']) {
+						tasks.push(function (taskCB) {
+							//TODO 可能需要设置超时时间
+
+							var client = new Client();
+							client.get("http://"+ip, function (data, response) {
+								// parsed response body as js object
+								console.log('传感器的数据', data)
+								taskCB(null, data)
+							});
+						})
+					}
+				});
+
+				async.parallel(tasks, function (err, results) {
+					if (err) {
+						console.log(err)
+					}
+					else {
+						ack && ack(results)
+					}
 				})
 			});
 		});

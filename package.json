@@ -16,6 +16,8 @@
     "jsonfile": "^2.4.0",
     "qrcode-js": "0.0.2",
     "socket.io": "^1.7.2",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "lodash": "^4.17.4",
+    "npm i node-rest-client": "3.1.0"
   }
 }
