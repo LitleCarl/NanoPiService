@@ -20,31 +20,25 @@ module.exports = {
 	const: SocketConst,
 	init: function() {
 		var io = require('socket.io')({"transports": ['websocket']});
-		var webSensor = io.of('/wetSensor');
 		var phone = io.of('/phone');
-		webSensor.on('connection', function(socket){
-			console.log('new client coming');
 
-		});
 
 		phone.on('connection', function(socket){
+			console.log('someone connected!')
 			socket.on('wetRequest', function (ack) {
-				var clients = webSensor.connected;
 				var tasks = [];
-
+				console.log('on wet Request')
 				_.forEach(['192.168.31.140'], function(ip){
-					if (clients[key] && clients[key]['id']) {
-						tasks.push(function (taskCB) {
-							//TODO 可能需要设置超时时间
+					tasks.push(function (taskCB) {
+						//TODO 可能需要设置超时时间
 
-							var client = new Client();
-							client.get("http://"+ip, function (data, response) {
-								// parsed response body as js object
-								console.log('传感器的数据', data)
-								taskCB(null, data)
-							});
-						})
-					}
+						var client = new Client();
+						client.get("http://"+ip, function (data, response) {
+							// parsed response body as js object
+							console.log('传感器的数据', data)
+							taskCB(null, data)
+						});
+					})
 				});
 
 				async.parallel(tasks, function (err, results) {
