@@ -30,20 +30,40 @@ module.exports = {
 					baseAddress.pop();
 					baseAddress = baseAddress.join('.');
 
-					_.forEach(['140'], function(ipLast){
+					_.forEach(['7'], function(ipLast){
 						tasks.push(function (taskCB) {
-							//TODO 可能需要设置超时时间
-							setTimeout(function (){
-
-							}, 5000);
-
+							var handled = false;
 							client.get("http://"+baseAddress+'.'+ipLast, function (data, response) {
 								// parsed response body as js object
+								handled = true;
 								taskCB(null, data)
 							}).on('error', function (err) {
-								console.log('something went wrong on the request', err.request.options);
-								taskCB(err)
+								if (!handled) {
+									handled = true;
+									console.log('something went wrong on the request', err.request.options);
+									taskCB(err)
+								}
 							});
+
+
+							req.on('requestTimeout', function (req) {
+								if (!handled) {
+									handled = true
+									console.log('request has expired');
+									req.abort();
+									taskCB('request has expired')
+								}
+							});
+
+							req.on('responseTimeout', function (res) {
+								if (!handled) {
+									handled = true;
+									console.log('response has expired');
+									taskCB('response has expired')
+								}
+
+							});
+
 
 						})
 					});
