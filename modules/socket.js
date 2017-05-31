@@ -10,7 +10,6 @@ var os=require('os');
 var iface = os.networkInterfaces()['wlan0'];
 
 module.exports = {
-	const: SocketConst,
 	init: function() {
 		const _ = require('lodash');
 		const async = require('async')
