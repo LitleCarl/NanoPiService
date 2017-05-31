@@ -32,7 +32,7 @@ require('./modules/socket')['init'](globalEventEmitter);
 //var socketConst = require('./modules/socket').const;
 
 // 端口映射
-frpc();
+//frpc();
 
 // WIFI模式切换服务
 wifiMode(globalEventEmitter);
