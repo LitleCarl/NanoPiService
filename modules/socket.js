@@ -33,7 +33,7 @@ module.exports = {
 					_.forEach(['7'], function(ipLast){
 						tasks.push(function (taskCB) {
 							var handled = false;
-							client.get("http://"+baseAddress+'.'+ipLast, function (data, response) {
+							var req = client.get("http://"+baseAddress+'.'+ipLast, function (data, response) {
 								// parsed response body as js object
 								handled = true;
 								taskCB(null, data)
