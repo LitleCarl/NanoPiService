@@ -100,7 +100,7 @@ module.exports = {
 				baseAddress.pop();
 				baseAddress = baseAddress.join('.');
 
-				_.forEach(['2'], function(ip){ //Todo 下流的NanoPi的URL
+				_.forEach(['105'], function(ip){ //Todo 下流的NanoPi的URL
 					tasks.push(function (taskCB) {
 						var client = restify.createJsonClient({
 							url: "http://"+baseAddress+'.'+ip+':8802',
