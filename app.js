@@ -2,7 +2,7 @@ var wiringPi = require('./modules/addon.node');
 var wifiMode = require('./modules/wifi_mode.js');
 var frpc = require('./modules/frpc/index.js');
 // Wifi 账号密码设置
-var wifiConfigSetting = require('./modules/setting/index');
+//var wifiConfigSetting = require('./modules/setting/index');
 
 const EventEmitter = require('events');
 
@@ -28,8 +28,8 @@ wiringPi.wiringPiSetup();
 const globalEventEmitter = new EventEmitter();
 
 // SocketIO对外信息同步
-require('./modules/socket')['init'](globalEventEmitter);
-//var socketConst = require('./modules/socket').const;
+//require('./modules/socket')['init'](globalEventEmitter);
+require('./modules/socket')['http']();
 
 // 端口映射
 frpc();
@@ -38,7 +38,7 @@ frpc();
 wifiMode(globalEventEmitter);
 
 ////////////////////////////// Wifi Client模式账户密码修改模式 HTTP服务，PORT: 3000 /////////////////////////////////
-wifiConfigSetting();
+//wifiConfigSetting();
 
 
 
