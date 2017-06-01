@@ -173,8 +173,8 @@ module.exports = {
 				var imgUrl = "http://"+uuid+".frpc.zaocan84.com/"+imgName;
 				process.nextTick(function () {
 					// 拍照
-					var lib = v4l2Module.init().lib;
-					lib.L4V2Library.captureFromV4L2(imgPath);
+					// TODO 检查文件大小删除缓存
+					v4l2Module.L4V2Library.captureFromV4L2(imgPath);
 				});
 				var status = (err == null) ? 200 : 500;
 				res.status(status).json({code: err == null, message: err, data: obj, img: imgUrl})
