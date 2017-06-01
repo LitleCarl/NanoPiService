@@ -1,7 +1,5 @@
 const _ = require('lodash');
 const async = require('async')
-var Client = require('node-rest-client').Client;
-var client = new Client();
 var io = require('socket.io')();
 var phone = io.of('/phone');
 
@@ -12,7 +10,6 @@ var iface = os.networkInterfaces()['wlan0'];
 var restify = require('restify');
 var v4l2Module = require('./v4l2')
 var fs=require('fs');
-var async=require('async');
 var bodyParser = require('body-parser')
 var express = require('express');
 
