@@ -107,7 +107,7 @@ module.exports = {
 							version: '*'
 						});
 
-						client.get('/wetAndImage', function (err, req, res, obj) {
+						client.get('/wetAndImage', function (err, _req, _res, obj) {
 							taskCB(err, obj);
 						});
 					});
@@ -166,7 +166,7 @@ module.exports = {
 				version: '*'
 			});
 
-			client.get('/', function (err, req, res, obj) {
+			client.get('/', function (err, _req, _res, obj) {
 				console.log('Server returned: %j', obj);
 				var imgName = Date.parse(new Date()).toString() + '.jpg';
 				var imgPath = __dirname + '/public/' + imgName;
