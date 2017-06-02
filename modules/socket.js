@@ -97,10 +97,10 @@ module.exports = {
 
 			if (iface && iface[0] && iface[0]['address']) {
 				var baseAddress = iface[0]['address'].split('.');
-				baseAddress.pop();
+				var localIPLast = baseAddress.pop();
 				baseAddress = baseAddress.join('.');
 
-				_.forEach(['105'], function(ip){ //Todo 下流的NanoPi的URL
+				_.forEach([localIPLast], function(ip){ //Todo 下流的NanoPi的URL
 					tasks.push(function (taskCB) {
 						var client = restify.createJsonClient({
 							url: "http://"+baseAddress+'.'+ip+':8802',
