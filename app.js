@@ -1,6 +1,7 @@
 var wiringPi = require('./modules/addon.node');
 var wifiMode = require('./modules/wifi_mode.js');
 var frpc = require('./modules/frpc/index.js');
+
 // Wifi 账号密码设置
 //var wifiConfigSetting = require('./modules/setting/index');
 
@@ -32,7 +33,11 @@ const globalEventEmitter = new EventEmitter();
 require('./modules/socket')['http']();
 
 // 端口映射
-frpc();
+//frpc();
+
+// 反向代理
+var http = require('http'), httpProxy = require('http-proxy');
+httpProxy.createProxyServer({target:'http://localhost:8802'}).listen(8000);
 
 // WIFI模式切换服务
 wifiMode(globalEventEmitter);
