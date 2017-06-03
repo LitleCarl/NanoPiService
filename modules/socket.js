@@ -127,34 +127,12 @@ module.exports = {
 
 
 
-// 视频终端需要运行以下代码
-		const uuidPath = '/var/device_uuid';
+		// 视频终端需要运行以下代码
 		var bodyParserForQueryImageAndWet = require('body-parser')
 		var queryImageAndWet = express();
 		queryImageAndWet.use(bodyParserForQueryImageAndWet.urlencoded({ extended: false }));
 		queryImageAndWet.use(bodyParserForQueryImageAndWet.json());
 		queryImageAndWet.use(express.static(__dirname + '/public'));
-
-		var uuid = null;
-		async.parallel({
-			uuid: function (cb) {
-				fs.readFile(uuidPath, {encoding: "utf-8"}, function (err, str) {
-					if (!err) {
-						try {
-							var obj = JSON.parse(str)['uuid'];
-							cb(null, obj)
-						} catch(e) {
-							cb(null, null);
-						}
-					}
-					else {
-						cb(null, null);
-					}
-				});
-			}
-		}, function (err, result) {
-			uuid = result['uuid'];
-		});
 
 		queryImageAndWet.get('/wetAndImage', function (req, res) {
 			var baseAddress = iface[0]['address'].split('.');
@@ -170,14 +148,13 @@ module.exports = {
 				console.log('Server returned: %j', obj);
 				var imgName = Date.parse(new Date()).toString() + '.jpg';
 				var imgPath = __dirname + '/public/' + imgName;
-				var imgUrl = "http://"+uuid+".frpc.zaocan84.com/"+imgName;
 				process.nextTick(function () {
 					// 拍照
 					// TODO 检查文件大小删除缓存
 					v4l2Module.L4V2Library.captureFromV4L2(imgPath);
 				});
 				var status = (err == null) ? 200 : 500;
-				res.status(status).json({code: err == null, message: err, data: obj, img: imgUrl})
+				res.status(status).json({code: err == null, message: err, data: obj, imgName: imgName, nanoPiAddress: iface[0]['address']})
 			});
 
 		});
