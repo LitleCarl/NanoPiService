@@ -36,8 +36,8 @@ require('./modules/socket')['http']();
 //frpc();
 
 // 反向代理
-var http = require('http'), httpProxy = require('http-proxy');
-httpProxy.createProxyServer({target:'http://localhost:8802'}).listen(8000);
+//var http = require('http'), httpProxy = require('http-proxy');
+//httpProxy.createProxyServer({target:'http://localhost:8802'}).listen(8000);
 
 // WIFI模式切换服务
 wifiMode(globalEventEmitter);
