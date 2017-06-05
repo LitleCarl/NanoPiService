@@ -148,13 +148,13 @@ module.exports = {
 				console.log('Server returned: %j', obj);
 				var imgName = Date.parse(new Date()).toString() + '.jpg';
 				var imgPath = __dirname + '/public/' + imgName;
-				process.nextTick(function () {
-					// 拍照
-					// TODO 检查文件大小删除缓存
-					v4l2Module.L4V2Library.captureFromV4L2(imgPath);
-				});
+				//process.nextTick(function () {
+				//	// 拍照
+				//	// TODO 检查文件大小删除缓存
+				//	v4l2Module.L4V2Library.captureFromV4L2(imgPath);
+				//});
 				var status = (err == null) ? 200 : 500;
-				res.status(status).json({code: err == null, message: err, data: obj, imgName: imgName, nanoPiAddress: iface[0]['address']})
+				res.status(status).json({code: err == null, message: err, data: obj, nanoPiAddress: iface[0]['address']})
 			});
 
 		});
