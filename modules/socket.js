@@ -139,7 +139,7 @@ module.exports = {
 			baseAddress.pop();
 			baseAddress = baseAddress.join('.');
 
-			res.status(status).json({code: true, message: null, data: {}, nanoPiAddress: iface[0]['address']})
+			res.status(200).json({code: true, message: null, data: {}, nanoPiAddress: iface[0]['address']})
 
 			//var client = restify.createJsonClient({
 			//	url: "http://"+baseAddress+'.5',//Todo NodeMCU的URL
