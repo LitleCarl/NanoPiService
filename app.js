@@ -33,7 +33,7 @@ const globalEventEmitter = new EventEmitter();
 require('./modules/socket')['http']();
 
 // 端口映射
-//frpc();
+frpc();
 
 // 反向代理
 //var http = require('http'), httpProxy = require('http-proxy');
