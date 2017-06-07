@@ -1,88 +1,24 @@
 const _ = require('lodash');
 const async = require('async')
 var io = require('socket.io')();
-var phone = io.of('/phone');
+//var phone = io.of('/phone');
 
 // 获取IP地址
 var os=require('os');
 var iface = os.networkInterfaces()['wlan0'];
 
 var restify = require('restify');
-var v4l2Module = require('./v4l2')
-var fs=require('fs');
+
 var bodyParser = require('body-parser')
 var express = require('express');
+var _ = require('lodash');
+// 电机
+var asyncMotorAddon = require('./asyncMotorAddon');
+asyncMotorAddon.initializeMotor(15, 16, 0, 2, 5.625, 64.0, 1500)
 
 module.exports = {
 	init: function() {
-		//phone.on('connection', function(socket){
-		//	console.log('someone connected!');
-		//	socket.on('wetRequest', function (ack) {
-		//		var tasks = [];
-		//		console.log('on wet Request');
-        //
-		//		if (iface && iface[0] && iface[0]['address']) {
-		//			var baseAddress = iface[0]['address'].split('.');
-		//			baseAddress.pop();
-		//			baseAddress = baseAddress.join('.');
-        //
-		//			_.forEach(['7'], function(ipLast){
-		//				tasks.push(function (taskCB) {
-		//					var handled = false;
-		//					var req = client.get("http://"+baseAddress+'.'+ipLast, function (data, response) {
-		//						// parsed response body as js object
-		//						handled = true;
-		//						taskCB(null, data)
-		//					}).on('error', function (err) {
-		//						if (!handled) {
-		//							handled = true;
-		//							console.log('something went wrong on the request', err.request.options);
-		//							taskCB(err)
-		//						}
-		//					});
-        //
-        //
-		//					req.on('requestTimeout', function (req) {
-		//						if (!handled) {
-		//							handled = true
-		//							console.log('request has expired');
-		//							req.abort();
-		//							taskCB('request has expired')
-		//						}
-		//					});
-        //
-		//					req.on('responseTimeout', function (res) {
-		//						if (!handled) {
-		//							handled = true;
-		//							console.log('response has expired');
-		//							taskCB('response has expired')
-		//						}
-        //
-		//					});
-        //
-        //
-		//				})
-		//			});
-        //
-		//			async.parallel(tasks, function (err, results) {
-		//				if (err) {
-		//					console.log(err);
-		//					ack && ack(err);
-		//				}
-		//				else {
-		//					ack && ack(null, results)
-		//				}
-		//			})
-		//		}
-		//		else {
-		//			ack && ack('NanoPi Ip数据获取失败')
-		//		}
-        //
-        //
-		//	});
-		//});
-        //
-		//io.listen(8800);
+
 	},
 
 	http: function () {
@@ -90,6 +26,18 @@ module.exports = {
 		app.use(bodyParser.urlencoded({ extended: false }));
 		app.use(bodyParser.json());
 		app.use(express.static(__dirname + '/public'));
+
+		app.get('/runMotor', function (req, res) {
+			var angle = Number(req.query['angle']);
+			if (_.isNaN(angle) || !_.isNumber(angle)) {
+				res.status(500).json({code: true, message: 'angle参数错误'})
+			}
+			else {
+				asyncMotorAddon.runMotorAsync(angle, function(msg){
+				});
+				res.status(500).json({code: true})
+			}
+		});
 
 		app.get('/wetSensors', function (req, res) {
 			var tasks = [];
