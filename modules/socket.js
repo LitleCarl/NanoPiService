@@ -34,7 +34,11 @@ module.exports = {
 			else {
 				var status = asyncMotorAddon.runMotorAsync(angle, function(msg){
 				});
-				res.status(status == 1? 200 : 500).json({code: status == 1})
+				res.status(status == 1? 200 : 500).json({code: status == 1, data:
+					{
+						predictTime: angle/5.625 * 64 * 1500 / 1000 // 预测执行时间单位为ms
+					}
+				})
 			}
 		});
 
