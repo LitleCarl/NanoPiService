@@ -11,7 +11,6 @@ var restify = require('restify');
 
 var bodyParser = require('body-parser')
 var express = require('express');
-var _ = require('lodash');
 // 电机
 var asyncMotorAddon = require('./asyncMotorAddon');
 asyncMotorAddon.initializeMotor(15, 16, 0, 2, 5.625, 64.0, 1500)
