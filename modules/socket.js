@@ -32,9 +32,9 @@ module.exports = {
 				res.status(500).json({code: true, message: 'angle参数错误'})
 			}
 			else {
-				asyncMotorAddon.runMotorAsync(angle, function(msg){
+				var status = asyncMotorAddon.runMotorAsync(angle, function(msg){
 				});
-				res.status(500).json({code: true})
+				res.status(status == 1? 200 : 500).json({code: status == 1})
 			}
 		});
 
