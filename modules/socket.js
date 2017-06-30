@@ -15,7 +15,9 @@ var express = require('express');
 var asyncMotorAddon = require('./motor_module');
 var asyncMotorAddon2 = require('./motor_module_two');
 asyncMotorAddon.initializeMotor(15, 16, 1, 1.8, 1, 1000)
-//asyncMotorAddon2.initializeMotor(15, 16, 1, 1.8, 1, 1000)
+asyncMotorAddon2.initializeMotor(12, 13, 14, 1.8, 1, 1000)
+
+var motors = [asyncMotorAddon, asyncMotorAddon2];
 
 module.exports = {
 	init: function() {
@@ -30,11 +32,13 @@ module.exports = {
 
 		app.get('/runMotor', function (req, res) {
 			var angle = Number(req.query['angle']);
+			var motorIndex = Number(req.query['motor_index']) || 0;
+
 			if (_.isNaN(angle) || !_.isNumber(angle)) {
 				res.status(500).json({code: true, message: 'angle参数错误'})
 			}
 			else {
-				var status = asyncMotorAddon.runMotorAsync(angle, function(msg){
+				var status = motors[motorIndex].runMotorAsync(angle, function(msg){
 				});
 				res.status(status == 1? 200 : 500).json({code: status == 1, data:
 					{
