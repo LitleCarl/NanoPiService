@@ -12,8 +12,10 @@ var restify = require('restify');
 var bodyParser = require('body-parser')
 var express = require('express');
 // 电机
-var asyncMotorAddon = require('./asyncMotorAddon');
-asyncMotorAddon.initializeMotor(15, 16, 0, 2, 5.625, 64.0, 1500)
+var asyncMotorAddon = require('./motor_module');
+var asyncMotorAddon2 = require('./motor_module_two');
+asyncMotorAddon.initializeMotor(15, 16, 1, 1.8, 1, 1000)
+//asyncMotorAddon2.initializeMotor(15, 16, 1, 1.8, 1, 1000)
 
 module.exports = {
 	init: function() {
@@ -36,7 +38,7 @@ module.exports = {
 				});
 				res.status(status == 1? 200 : 500).json({code: status == 1, data:
 					{
-						predictTime: angle/5.625 * 64 * 1500 / 1000 // 预测执行时间单位为ms
+						predictTime: angle / 360.0 / 0.625 * 1000 // 预测执行时间单位为ms
 					}
 				})
 			}
