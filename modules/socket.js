@@ -38,11 +38,12 @@ module.exports = {
 				res.status(500).json({code: true, message: 'angle参数错误'})
 			}
 			else {
+				angle = angle * 4;
 				var status = motors[motorIndex].runMotorAsync(angle, function(msg){
 				});
 				res.status(status == 1? 200 : 500).json({code: status == 1, data:
 					{
-						predictTime: angle / 360.0 / 0.625 * 1000 // 预测执行时间单位为ms
+						predictTime: angle / 4.0 / 360.0 / 0.625 * 1000 // 预测执行时间单位为ms
 					}
 				})
 			}
