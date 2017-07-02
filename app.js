@@ -3,7 +3,7 @@ var wifiMode = require('./modules/wifi_mode.js');
 var frpc = require('./modules/frpc/index.js');
 
 // Wifi 账号密码设置
-//var wifiConfigSetting = require('./modules/setting/index');
+var wifiConfigSetting = require('./modules/setting/index');
 
 const EventEmitter = require('events');
 
@@ -43,7 +43,7 @@ frpc();
 wifiMode(globalEventEmitter);
 
 ////////////////////////////// Wifi Client模式账户密码修改模式 HTTP服务，PORT: 3000 /////////////////////////////////
-//wifiConfigSetting();
+wifiConfigSetting();
 
 
 
